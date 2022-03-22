@@ -130,5 +130,54 @@ Once we finish with this list, we shall de-prioritize and/or drop some of those.
   - ...
 
 #	Monitoring & Telemetry
--	**For next week**
-
+- Centralized and aggregated separated service
+  - First inside the DPU locally
+  - Across fleet of DPUs (optionally)
+- Propagation & subscription model
+  - PUB/SUB
+  - Pulling
+  - Streaming
+- Storage to hold all this data
+  - Streaming platforms…
+  - Permanent storage…
+  - External to DPU
+  - Internal to DPU
+  - If Host server is available host storage option
+  - How much data we save back…
+- Plugins
+  - System syslog plugin (mostly kernel and system)
+  - BMC plugin
+  - Most of the services are user space and containers
+  - Native to other custom services
+  - What protocols do we use? gRPC? maybe out of scope ?
+- Verbosity
+  - Filtering on sender (service) side
+  - Filtering on aggregator side
+- Classes
+  - Logging
+    - Is this just type of telemetry or event below ?
+    - Telemetry
+    - Environmental (temp)
+    - State of resources / load (cpu, mem,..)
+    - Error counts from offload/fw/hw/…
+    - Usage statistics (bw, iops, packets … for billing)
+  - Events / Alerts
+    - State change
+    - Service up/down/new
+  - Capabilities
+    - See the capabilities bullet…
+    - Does this change much ?
+- Performance
+  - Possible out of scope …
+  - Due to limited resources of the DPU
+- Telemetry loss
+  - Possible out of scope …
+  - What happens when DPU loses communication?
+  - How to offload / trim / discard the aggregated?
+- Implementation questions
+  - Can we utilize IPDK framework and start implementing all the things we discuss above?
+  - This could be a good vehicle to try those ideas in the real-life application
+  - The APIs today in SPDK/IPDK/DPDK are too low level
+  - We can start with those frameworks…
+  - Action item: bring somebody from IPDK (Dan.D) ?
+  - Think about Telegraf , Fluentd and InfluxDB...
