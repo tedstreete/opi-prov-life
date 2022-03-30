@@ -1,12 +1,17 @@
 # Provisioning and Platform Management Group
 
-The focus of subgroup is:
-- Discovery
-- Inventory
-- Provisioning
-- Boot sequencing
-- Lifecycle & Updates
-- Monitoring & Telemetry
-
-Organizer: Boris Glimcher, glimchb
-Meeting: Weekly TBD
+* Description & Responsibilities
+    * Discovery
+    * Inventory
+    * Provisioning
+    * Boot sequencing
+    * Lifecycle & Updates
+    * Monitoring & Telemetry
+* Leader
+    * [Boris Glimcher](https://github.com/glimchb)
+* Meeting Time & Date
+    * Tuesdays 13:00-13:45 ET
+* Slack Channel
+    * [lifecycle-subgroup](https://opi-project.slack.com/archives/C0342L6T7EC)
+* Status
+    * Active
