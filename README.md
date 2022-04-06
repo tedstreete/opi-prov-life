@@ -1,5 +1,7 @@
 # Provisioning and Platform Management Group
 
+OPI subgroup dealing with provisioning and lifecycle management.
+
 * Description & Responsibilities
     * Discovery
     * Inventory
