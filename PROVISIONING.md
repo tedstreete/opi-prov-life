@@ -20,7 +20,8 @@ tbd... re-celling, faults...
 
 ## Manual Provisioning
 
-tbd...
+NVIDIA has a manual provisioning process based on a virtual *-over-PCIe device set, called [RSHIM](https://github.com/Mellanox/rshim). RSHIM creates, among other things, a virtual point-to-point ethernet device, and a virtual console device, between host and DPU. See also [usage](https://docs.nvidia.com/networking/display/BlueFieldDPUOSLatest/Deploying+DPU+OS+Using+BFB+from+Host) of RSHIM.
+Many customers are using this process to deploy their own OS image and initialize system configuration, since they trust the OS running on the x86 host.
 
 ## USB/Virtual media Provisioning
 
@@ -32,6 +33,8 @@ Use case: small scale, unique, specialized deployments ?
 - Provisioning server changes boot order of the xPU
 - Provisioning server maps Virtual Media with ISO image to provision
 - Provisioning server causes reboot after or xPU reboots itself
+
+Another option involves using platform BMC to talk to DPU, via e.g. (RBT interface defined by DMTF protocol)[https://en.wikipedia.org/wiki/NC-SI].
 
 ## Automatic Provisioning
 
@@ -85,6 +88,7 @@ Question: OPI can produce an agent (container) that runs on DPU for example and 
 - Any other implementation of the secure provisioning server/vm/container is also acceptable if follows same SPEC
 - xPU vendors will adopt their implementation to meet this secure provisioning server/vm/container
 - Provisioning companies/customers will use API defined to the secure provisioning server/vm/container to integrate in their existing provisioning methods
+- Another option would be to actually implement a generic *client* to consume this SPEC/protocol and facilitate provisioning. Obviously there will be parts of the provisioning process that are propiertary, but surely most of it can be vendor-agnostic, based on the spec.
 
 - OPI can also produce an agent (container/service) for Standard Inventory Query that everybody (existing provisioning systems) can query
 
