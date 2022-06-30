@@ -104,11 +104,27 @@ POST https://<bmc_ip_address>/redfish/v1/Systems/1/Actions/ComputerSystem.Reset
 }
 ```
 
-Another option involves using a trusted network connection between platform BMC and NIC BMC (using [NCSI](https://en.wikipedia.org/wiki/NC-SI)). In this scenario,  the platform BMC is able to interact with the NIC BMC without any involvement of, or placing trust in, an OS running on the host. One could send custom OEM commands over NC-SI to the BMC, or have a RedFish client on DPU receive commands from RedFish server on the platform BMC.
+## Automatic Provisioning
 
-## Automatic Provisioning (ZTP)
+We call "Automatic Provisioning" a provisioning process that is usually one that is automated by the environment and/or control plane, and doesn't involve a human operator's direct involvement (in e.g. plugging in a USB drive or a laptop via an ethernet/console cable)
 
-### What is ZTP
+### Externally-initiated
+
+Provisioning can be triggered by an external actor, usually via BMC.
+
+#### DPU BMC
+
+DPU can receive commands via its BMC (using IPMI, RedFish etc.) to change boot order to PXE boot, and then to boot.
+
+#### Platform BMC
+
+The interaction from the previous section can also be applied using a trusted network connection between platform BMC and NIC BMC (using [NCSI](https://en.wikipedia.org/wiki/NC-SI)). In this scenario,  the platform BMC is able to interact with the NIC BMC without any involvement of, or placing trust in, an OS running on the host. One could send custom OEM commands over NC-SI to the BMC, or have a RedFish client on DPU receive commands from RedFish server on the platform BMC.
+
+### Passive (ZTP/SZTP)
+
+Passive reprovisioning is a process where DPUs start up and detect that they need to be re-provisioned. One such example might ostensibly be a DPU being fresh out of the factory and lacks an initial OS.
+
+#### What is ZTP
 
 Zero Touch Provisioning (ZTP) allows you to provision new DPU/IPU devices in your network automatically, with minimal manual intervention. This includes system software, operating system, patch files, and configuration files.
 
@@ -116,13 +132,13 @@ You can use either management ports or network ports, depending on your device, 
 
 ZTP solves deploy at scale and reduce labor cost of manual intervention.
 
-### What is sZTP
+#### What is sZTP
 
 see <https://www.rfc-editor.org/rfc/pdfrfc/rfc8572.txt.pdf>
 
 Secure Zero Touch Provisioning (SZTP) adds a bootstrap server to DHCP-based ZTP deployment scenarios and uses two-way authentication and data encryption to secure ZTP data.
 
-### Components of ZTP deployment
+#### Components of ZTP deployment
 
 ![sZTP components](architecture/sZTP-components.png)
 
@@ -134,7 +150,7 @@ Secure Zero Touch Provisioning (SZTP) adds a bootstrap server to DHCP-based ZTP 
 - DNS server (optional): maps domain names to IP addresses (for example bootstrap server and Deployment file server IPs).
 - Syslog server (optional): holds/collects logs during the sZTP process.
 
-### sZTP process
+#### sZTP process
 
 ![Chain Loader Provisioning opiton](architecture/Provisioning_TwoStage.png)
 
@@ -176,7 +192,7 @@ Two overarching scenarios:
 1) private network; security provided by physical isolation
 2) multi-tenant environment; mutual authentication with device and provisioning server will be essential
 
-### sZTP Configuration
+#### sZTP Configuration
 
 This section shows what ZTP commands are supported on DPU/IPUs:
 
