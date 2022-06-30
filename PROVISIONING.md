@@ -53,7 +53,23 @@ Andy: Do we need to cover manual methods in our scope? Many, many methods...
 NVIDIA has a manual provisioning process based on a virtual *-over-PCIe device set, called [RSHIM](https://github.com/Mellanox/rshim). RSHIM creates, among other things, a virtual point-to-point ethernet device, and a virtual console device, between host and DPU/IPU. See also [usage](https://docs.nvidia.com/networking/display/BlueFieldDPUOSLatest/Deploying+DPU+OS+Using+BFB+from+Host) of RSHIM.
 Many customers are using this process to deploy their own OS image and initialize system configuration, since they trust the OS running on the x86 host.
 
-### USB/Virtual media Provisioning
+## Automatic Provisioning
+
+We call "Automatic Provisioning" a provisioning process that is usually one that is automated by the environment and/or control plane, and doesn't involve a human operator's direct involvement (in e.g. plugging in a USB drive or a laptop via an ethernet/console cable)
+
+### Externally-initiated
+
+Provisioning can be triggered by an external actor, usually via BMC.
+
+#### DPU BMC
+
+DPU can receive commands via its BMC (using IPMI, RedFish etc.) to change boot order to PXE boot, and then to boot.
+
+#### Platform BMC
+
+The interaction from the previous section can also be applied using a trusted network connection between platform BMC and NIC BMC (using [NCSI](https://en.wikipedia.org/wiki/NC-SI)). In this scenario,  the platform BMC is able to interact with the NIC BMC without any involvement of, or placing trust in, an OS running on the host. One could send custom OEM commands over NC-SI to the BMC, or have a RedFish client on DPU receive commands from RedFish server on the platform BMC.
+
+#### USB/Virtual media Provisioning
 
 Note: This is typically a manual method, enabled by a one-to-one interaction with a BMC.
 
@@ -103,22 +119,6 @@ POST https://<bmc_ip_address>/redfish/v1/Systems/1/Actions/ComputerSystem.Reset
     "ResetType" : "ForceRestart"
 }
 ```
-
-## Automatic Provisioning
-
-We call "Automatic Provisioning" a provisioning process that is usually one that is automated by the environment and/or control plane, and doesn't involve a human operator's direct involvement (in e.g. plugging in a USB drive or a laptop via an ethernet/console cable)
-
-### Externally-initiated
-
-Provisioning can be triggered by an external actor, usually via BMC.
-
-#### DPU BMC
-
-DPU can receive commands via its BMC (using IPMI, RedFish etc.) to change boot order to PXE boot, and then to boot.
-
-#### Platform BMC
-
-The interaction from the previous section can also be applied using a trusted network connection between platform BMC and NIC BMC (using [NCSI](https://en.wikipedia.org/wiki/NC-SI)). In this scenario,  the platform BMC is able to interact with the NIC BMC without any involvement of, or placing trust in, an OS running on the host. One could send custom OEM commands over NC-SI to the BMC, or have a RedFish client on DPU receive commands from RedFish server on the platform BMC.
 
 ### Passive (ZTP/SZTP)
 
