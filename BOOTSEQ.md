@@ -45,9 +45,9 @@ Events:-
   - Host BIOS may need to be modified to allow longer CRS response time before timing out
 
 - Host BIOS may sequence the start-up either automatically using orchestration built into BIOS or explicitly through commands sent by external orchestrator to BIOS
-	- Provide power to xPU without starting host
-	- Wait for xPU to complete startup
-	- Boot host
+  - Provide power to xPU without starting host
+  - Wait for xPU to complete startup
+  - Boot host
 
 - Who tells host OS to continue / start booting ?
   - Default is for host OS continues boot process unless it is paused by CRS signal from xPU ?
@@ -110,16 +110,16 @@ xPU OS/FW crash and/or independent reboot will result in a Downstream Port Conta
 
 - Coordinated shutdown
   - The xPU can provide in-band or out-of band signalling to host OS that it intends to restart. The host OS can respond by either
-     - Ignoring the event if the host OS intends to continue execution after the remove event, containing the subsequent surprise removal
-     - Host OS reset (see above), to coordinate reboot of other xPUs on the host bus
+    - Ignoring the event if the host OS intends to continue execution after the remove event, containing the subsequent surprise removal
+    - Host OS reset (see above), to coordinate reboot of other xPUs on the host bus
 
 - xPU OS crash or reset.
   - xPU will trigger DPC/CI surprise remove event. 
   - Host OS and BMC/BIOS will need to handle these events gracefully so that host OS remains active for long enough for the xPU OS crash dump to complete.
   - If host OS is tightly coupled to xPU function, it can elect to gracefully shutdown/reboot when the xPU crashdump has completed.
   - Alternatively, if host OS is losely coupled or decoupled from xPU (if xPU is acting as a bump in the wire service for example), the host can
-     - Elect to contain the event, removing the xPU from the bus table. When the xPU restarts, it will generate a hot-plug event on the PCIe bus, allowing the host BIOS/OS to reinsert the xPU.
-     - Note: This behavior is currently a largely untested feature in Linux host OS, and is not available on Windows
+    - Elect to contain the event, removing the xPU from the bus table. When the xPU restarts, it will generate a hot-plug event on the PCIe bus, allowing the host BIOS/OS to reinsert the xPU.
+    - Note: This behavior is currently a largely untested feature in Linux host OS, and is not available on Windows
 
   - _Further discussion required_ NVIDIA's design separates the various components, and an ARM complex reboot should have no direct effect on the host OS. Similarly, some vendors implement ISSU processes for certain FW updates where no disruption is observed.
   - This will cause challenges for xPU OS deployment and multi-xPU depolyments. We should encourage graceful reset behaviour from host/OS/xPUs
