@@ -12,11 +12,11 @@ Entities optionally participating in the boot/reboot/shutdown processes:
 
 ## Assumptions
 
-- Resetting the xPU is assumed to cause PCIe errors that may impact the operation of the host OS. 
+- Resetting the xPU is assumed to cause PCIe errors that may impact the operation of the host OS.
   - There are different kinds of resets. Generally XPU core complex reset and XPU PCIe MAC reset should be separated for minimal disruptive ISSU etc. but a complete SoC reset of the xPU will cause PCIe errors and may result in a controlled or uncontrolled host reset.
   - See  _Host Reset or Crash_ and _xPU Reset or Crash_ sections for specifics.
 
-- There are use cases for network boot only where the host is used only to provide power and cooling to one or more xPUs. 
+- There are use cases for network boot only where the host is used only to provide power and cooling to one or more xPUs.
 - xPU boot can take some time (full linux distro)
 - There is communication between some of the entities from above
 - More...
@@ -37,8 +37,8 @@ Events:-
 - Should host OS wait for xPU to finish boot ?
   - For some functions, it must (e.g. NVMe namespace that it needs to boot from)
   - With a pre-provisioned, local host OS present, and for other functions (most notably, networking), the host can continue its boot sequence. Ports should appear down from the host's perspective until the xPU is ready to handle traffic from/to host.
-  - Host OS continues to its boot. xPU needs to either respond to PCIe transactions or respond with retry config cycles (CRS) till it is ready. This automatically holds the host BIOS. 
-  - The xPU may hold its PCIe channel down during xPU boot. When the xPU has finished booting, it generates a hot-plug event, and the host will insert the xPU into the PCIe root complex.Is this true for all host OS?_
+  - Host OS continues to its boot. xPU needs to either respond to PCIe transactions or respond with retry config cycles (CRS) till it is ready. This automatically holds the host BIOS.
+  - The xPU may hold its PCIe channel down during xPU boot. When the xPU has finished booting, it generates a hot-plug event, and the host will insert the xPU into the PCIe root complex. Is this true for all host OS?
 
 - Who tells host OS/xPU OS to wait and how ?
   - PCIe has a mechanism for config retry cycles (CRS) that can be used.
@@ -117,7 +117,7 @@ xPU OS/FW crash and/or independent reboot will result in a Downstream Port Conta
   - xPU will trigger DPC/CI surprise remove event. 
   - Host OS and BMC/BIOS will need to handle these events gracefully so that host OS remains active for long enough for the xPU OS crash dump to complete.
   - If host OS is tightly coupled to xPU function, it can elect to gracefully shutdown/reboot when the xPU crashdump has completed.
-  - Alternatively, if host OS is losely coupled or decoupled from xPU (if xPU is acting as a bump in the wire service for example), the host can 
+  - Alternatively, if host OS is losely coupled or decoupled from xPU (if xPU is acting as a bump in the wire service for example), the host can
      - Elect to contain the event, removing the xPU from the bus table. When the xPU restarts, it will generate a hot-plug event on the PCIe bus, allowing the host BIOS/OS to reinsert the xPU.
      - Note: This behavior is currently a largely untested feature in Linux host OS, and is not available on Windows
 
