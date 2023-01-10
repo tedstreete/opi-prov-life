@@ -114,7 +114,7 @@ xPU OS/FW crash and/or independent reboot will result in a Downstream Port Conta
     - Host OS reset (see above), to coordinate reboot of other xPUs on the host bus
 
 - xPU OS crash or reset.
-  - xPU will trigger DPC/CI surprise remove event. 
+  - xPU will trigger DPC/CI surprise remove event.
   - Host OS and BMC/BIOS will need to handle these events gracefully so that host OS remains active for long enough for the xPU OS crash dump to complete.
   - If host OS is tightly coupled to xPU function, it can elect to gracefully shutdown/reboot when the xPU crashdump has completed.
   - Alternatively, if host OS is losely coupled or decoupled from xPU (if xPU is acting as a bump in the wire service for example), the host can
