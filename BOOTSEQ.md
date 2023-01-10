@@ -41,7 +41,7 @@ Events:-
   - The xPU may hold its PCIe channel down during xPU boot. When the xPU has finished booting, it generates a hot-plug event, and the host will insert the xPU into the PCIe root complex. Is this true for all host OS?
 
 - Who tells host OS/xPU OS to wait and how ?
-  - PCIe has a mechanism for config retry cycles (CRS) that can be used.
+  - PCIe has a mechanism for config retry cycles (CRS) that can be used
   - Host BIOS may need to be modified to allow longer CRS response time before timing out
 
 - Host BIOS may sequence the start-up either automatically using orchestration built into BIOS or explicitly through commands sent by external orchestrator to BIOS
